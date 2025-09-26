@@ -1,0 +1,150 @@
+import array
+import random
+from statistics import mean
+
+# --- Setup Data for the Project ---
+# Initial integer data simulating quantities sold
+sales_quantities = [random.randint(50, 500) for _ in range(10)]
+threshold = 250
+station_name = "MegaGas Station"
+
+print(f"--- Project 35: Fuel Station Sales Analysis for {station_name} ---")
+print("-" * 60)
+
+
+## Integers: Compute total, average, minimum, and maximum values
+# (e.g., quantities, marks, counts)
+print("1. Integer Calculations:")
+total_sales = sum(sales_quantities)
+average_sales = mean(sales_quantities)
+min_sales = min(sales_quantities)
+max_sales = max(sales_quantities)
+
+print(f"  Sample Quantities: {sales_quantities}")
+print(f"  Total Sales: {total_sales}")
+print(f"  Average Sales: {average_sales:.2f}")
+print(f"  Minimum Sale: {min_sales}")
+print(f"  Maximum Sale: {max_sales}")
+
+print("-" * 60)
+
+
+## Strings: Create a formatted string report for 'Fuel Station Sales'.
+# Include at least two f-strings summarizing totals and averages.
+print("2. Formatted String Report (f-strings):")
+report = f"""
+*** Daily Sales Report - {station_name} ***
+----------------------------------------------
+Total Units Sold: {total_sales} units.
+Average Unit Sales: {average_sales:.2f} units/transaction.
+----------------------------------------------
+Highest Sale: {max_sales} units.
+Lowest Sale: {min_sales} units.
+"""
+print(report)
+
+print("-" * 60)
+
+
+## Booleans: Apply a threshold condition within 'Fuel Station Sales'.
+# Use at least one compound boolean condition.
+print("3. Boolean Threshold Condition:")
+
+# Compound boolean condition: Check if average is above the threshold AND
+# if the total sales are over a certain minimum (e.g., 2000)
+min_total_required = 2000
+if average_sales > threshold and total_sales > min_total_required:
+    status = "Above Standard"
+    message = f"Average ({average_sales:.2f}) is above the threshold ({threshold}) AND Total Sales ({total_sales}) is over the minimum required ({min_total_required})."
+else:
+    status = "Below Standard"
+    message = f"Average ({average_sales:.2f}) is NOT above the threshold ({threshold}) OR Total Sales ({total_sales}) is under the minimum required ({min_total_required})."
+
+print(f"  Status: '{status}'")
+print(f"  Reason: {message}")
+
+print("-" * 60)
+
+
+## Lists: Maintain a list of items or records for 'Fuel Station Sales'.
+# Add a new element, remove one based on a condition, then sort and display.
+print("4. Lists Manipulation:")
+fuel_types_list = ["Regular Unleaded", "Premium", "Diesel", "Kerosene"]
+print(f"  Original List: {fuel_types_list}")
+
+# Add a new element
+fuel_types_list.append("E85 Ethanol")
+print(f"  After Add: {fuel_types_list}")
+
+# Remove one based on a condition (if 'Kerosene' is present)
+item_to_remove = "Kerosene"
+if item_to_remove in fuel_types_list:
+    fuel_types_list.remove(item_to_remove)
+    print(f"  Removed '{item_to_remove}': {fuel_types_list}")
+else:
+    print(f"  '{item_to_remove}' not found for removal.")
+
+# Sort the list
+fuel_types_list.sort()
+print(f"  After Sort: {fuel_types_list}")
+
+print("-" * 60)
+
+
+## Arrays: Use Python's 'array' module to store a fixed-size numeric subset of data.
+# Compute the sum of the array and compare with the list version.
+print("5. Arrays Module Usage:")
+
+# Create a fixed-size numeric array from the first 5 sales quantities
+subset_data = sales_quantities[:5]
+# 'i' stands for signed integer (usually 2 bytes)
+sales_array = array.array('i', subset_data)
+
+print(f"  List Subset: {subset_data}")
+print(f"  Array (Type 'i'): {sales_array}")
+
+# Compute the sum of the array
+array_sum = sum(sales_array)
+list_sum = sum(subset_data)
+
+print(f"  Sum of Array: {array_sum}")
+print(f"  Sum of List Version: {list_sum}")
+# Note: array.array is generally more memory-efficient than a list for storing
+# large amounts of homogeneous numeric data.
+
+print("-" * 60)
+
+
+## Dictionaries: Build a list of dictionaries for 'Fuel Station Sales'.
+# Update one record, delete another, and compute the total of the 'value' field.
+print("6. Dictionaries (List of Dicts) Manipulation:")
+
+sales_records = [
+    {'id': 101, 'name': 'Transaction 1', 'value': 450.50},
+    {'id': 102, 'name': 'Transaction 2', 'value': 980.25},
+    {'id': 103, 'name': 'Transaction 3', 'value': 210.00},
+    {'id': 104, 'name': 'Transaction 4', 'value': 600.75}
+]
+print(f"  Original Records (Count: {len(sales_records)}): {sales_records}")
+
+# Update one record (ID 103)
+record_to_update_id = 103
+for record in sales_records:
+    if record['id'] == record_to_update_id:
+        record['value'] = 250.00  # Updated value
+        print(f"  Updated Record {record_to_update_id}: New value is 250.00")
+        break
+
+# Delete another record (ID 104)
+record_to_delete_id = 104
+sales_records = [record for record in sales_records if record['id'] != record_to_delete_id]
+print(f"  Deleted Record {record_to_delete_id}. New Count: {len(sales_records)}")
+
+# Compute the total of the 'value' field across all records
+total_value = sum(record['value'] for record in sales_records)
+
+print(f"  Modified Records: {sales_records}")
+print(f"  Total of 'value' Field: ${total_value:.2f}")
+
+print("-" * 60)
+print("--- Script Execution Complete ---")
